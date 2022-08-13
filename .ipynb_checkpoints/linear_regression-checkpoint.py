@@ -58,8 +58,6 @@ if __name__ == "__main__":
 
     plt.scatter(X_test[:], y_test, label="actual")
     plt.plot(X_test[:], y_pred, c="r", label="pred")
-    plt.xlabel("X")
-    plt.ylabel("y")
     plt.legend()
     plt.show()
 
