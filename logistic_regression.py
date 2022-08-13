@@ -5,7 +5,10 @@ from linear_regression import BaseRegression
 class LogisticRegression(BaseRegression):
 
     def _approximation(self, X, w, b):
+            # X shape: (N, D)
+            # w shape: (D, )
             linear_model = np.dot(X, w) + b
+            # linear_model shape: (N, )
             return self._sigmoid(linear_model)
 
     def _predict(self, X, w, b):
@@ -17,7 +20,7 @@ class LogisticRegression(BaseRegression):
     def _sigmoid(self, x):
         return 1 / (1 + np.exp(-x))
 
-    
+
 if __name__ == "__main__":
     from sklearn.model_selection import train_test_split
     from sklearn import datasets
