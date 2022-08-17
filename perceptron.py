@@ -18,12 +18,16 @@ class Perceptron:
         
         for _ in range(self.n_iters):
             for idx, x_i in enumerate(X):
+                # x_i shape: (n_features, )
+
                 linear_output = np.dot(x_i, self.weights) + self.bias
                 y_pred = self.activation_func(linear_output)
                 delta = self.lr * (y_[idx]-y_pred)
+                # delta shape: (1, )
+
                 self.weights += delta * x_i
                 self.bias += delta
-    
+
     def predict(self, X):
         linear_output = np.dot(X, self.weights) + self.bias
         y_pred = self.activation_func(linear_output)
