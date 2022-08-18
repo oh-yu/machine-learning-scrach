@@ -52,12 +52,18 @@ if __name__ == "__main__":
     perceptron .fit(X_train, y_train)
     print(X_test.shape)
     y_pred = perceptron.predict(X_test)
+    print(f"Naive Bayes Test Accuracy: {accuracy(y_test, y_pred)}")
 
-    y = [1 if i > 0 else 0 for i in y]
-    plt.scatter(X[:, 0], X[:, 1], c=y)
+    y_train = [1 if i > 0 else 0 for i in y_train]
+    plt.scatter(X_train[:, 0], X_train[:, 1], c=y_train)
     plt.xlabel("X1")
     plt.ylabel("X2")
+    
+    x0_min = np.amin(X_train[:, 0])
+    x0_max = np.amax(X_train[:, 0])
+    x1_min = (-perceptron.weights[0] * x0_min + perceptron.bias) / perceptron.weights[1]
+    x1_max = (-perceptron.weights[0] * x0_max + perceptron.bias) / perceptron.weights[1] 
+    plt.plot([x0_min, x0_max], [x1_min, x1_max], "k", label="boundary")
+
     plt.legend()
     plt.show()
-
-    print(f"Naive Bayes Accuracy: {accuracy(y_test, y_pred)}")
