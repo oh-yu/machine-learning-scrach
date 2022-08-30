@@ -30,6 +30,7 @@ class SVM:
 
 if __name__ == "__main__":
     from sklearn import datasets
+    import matplotlib.pyplot as plt
 
     X,y = datasets.make_blobs(n_samples=50, n_features=2, centers=2, cluster_std=1.05, random_state=40)
     y = np.where(y == 0, -1, 1)
@@ -37,3 +38,26 @@ if __name__ == "__main__":
     clf = SVM()
     clf.fit(X, y)
     print(clf.w, clf.b)
+
+    plt.scatter(X[:, 0], X[:, 1], c=y)
+    def get_hyperplane_x1(w, x0, b, offset):
+        return (-w[0]*x0 + b + offset) / w[1]
+    
+    # w1x1+w0x0+b=0
+    x0_min = np.amin(X[:, 0])
+    x0_max = np.amax(X[:, 0])
+    x1_min = get_hyperplane_x1(clf.w, x0_min, clf.b, 0)
+    x1_max = get_hyperplane_x1(clf.w, x0_max, clf.b, 0)
+
+    # w1x1+w0x0+b=1
+    x1_min_positive = get_hyperplane_x1(clf.w, x0_min, clf.b, 1)
+    x1_max_positive = get_hyperplane_x1(clf.w, x0_max, clf.b, 1)
+
+    # w1x1+w0x0+b=-1
+    x1_min_negative = get_hyperplane_x1(clf.w, x0_min, clf.b, -1)
+    x1_max_negative = get_hyperplane_x1(clf.w, x0_max, clf.b, -1)
+
+    plt.plot([x0_min, x0_max], [x1_min, x1_max])
+    plt.plot([x0_min, x0_max], [x1_min_positive, x1_max_positive])
+    plt.plot([x0_min, x0_max], [x1_min_negative, x1_max_negative])
+    plt.show()
