@@ -17,6 +17,7 @@ class SVM:
         for _ in range(self.n_iters):
             for idx, x_i in enumerate(X):
                 if y_[idx] * (np.dot(x_i, self.w) - self.b) >= 1:
+                    # x_i shape: (n_features, )
                     # self.w shape: (n_features, )
                     self.w -=  self.lr * (self.w*2*self.lambda_param)
                 else:
