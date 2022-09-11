@@ -43,7 +43,7 @@ class DecisionTree:
         feat_idxs = np.random.choice(n_features, self.n_feats, replace=False)
 
         # greedy search
-        beth_feat, best_thr = self._best_critera(X, y, feat_idxs)
+        best_feat, best_thr = self._best_critera(X, y, feat_idxs)
 
     def predict(self, X):
         # traverse tree
