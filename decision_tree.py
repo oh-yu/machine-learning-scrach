@@ -67,3 +67,25 @@ class DecisionTree:
                     split_idx = feat_idx
                     split_thr = threshold
         return split_idx, split_thr
+    
+    def _information_gain(self, y, X_column, split_thr):
+        # Parent Enetropy
+        parent_entropy = entropy(y)
+    
+        # Generate Split
+        left_idxs, right_idxs = self._split(X_column, split_thr)
+        if len(left_idxs) == 0 or len(right_idxs) == 0:
+            return 0
+        # Weighted Average Child Entropy
+        n = len(y)
+        n_l, n_r = len(left_idxs), len(right_idxs)
+        e_l, e_r = entropy(y[left_idxs]), entropy(y[right_idxs])
+        child_entropy = (n_l/n)*e_l + (n_r/n)*e_r
+
+        ig = parent_entropy - child_entropy
+        return ig
+
+    def _split(self, X_column, split_thr):
+        left_idxs = np.argwhere(X_column <= split_thr).flatten()
+        right_idxs = np.argwhere(X_column > split_thr).flatten()
+        return left_idxs, right_idxs
