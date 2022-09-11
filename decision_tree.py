@@ -7,7 +7,7 @@ def entropy(y):
     return -np.sum([p * np.log2(p) for p in ps if p>0])
 
 class Node:
-    def __init__(self, feature=None, threshold=None, lef=None, right=None, *, value=None):
+    def __init__(self, feature=None, threshold=None, left=None, right=None, *, value=None):
         self.faeture = feature
         self.threshold = threshold
         self.left = left
